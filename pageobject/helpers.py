@@ -41,7 +41,12 @@ class SearchHelper(BasePage):
         frame = self.find_element(Locators.DOCUMENT_FRAME, time=timeout)
         return frame
 
-    def loading_document(self):
-        text_on_page = self.find_element(Locators.DOCUMENT_TITLE, time=timeout)
-        return text_on_page
+    def document_title(self):
+        title = self.find_element(Locators.DOCUMENT_TITLE)
+        title_text = title.text
+        return title_text
 
+    # def window_title(self):
+    #     title = self.find_element(Locators.DOCUMENT_TITLE)
+    #     title_text = title.text
+    #     return title_text

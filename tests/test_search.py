@@ -1,5 +1,3 @@
-from time import sleep
-
 from pageobject.helpers import SearchHelper
 import logging
 
@@ -14,7 +12,7 @@ def test_search(browser):
     main_page.click_on_the_search_button()
     main_page.text_in_field()
     found_result = main_page.result_element()
-    assert found_result, 'не выведен результат поиска'
+    assert found_result, 'Не выведен результат поиска'
     logging.info("SEARCH OK")
 
 
@@ -25,5 +23,14 @@ def test_open_document(browser):
     browser.switch_to.window(descriptors[1])
     frame = main_page.go_to_frame()
     browser.switch_to.frame(frame)
-    loading_page = main_page.loading_document()
-    assert loading_page, 'страница не загрузилась за 10 секунд'
+    loading_page = main_page.document_title()
+    assert loading_page, 'Страница не загрузилась за 10 секунд'
+
+
+def test_document_name(browser):
+    main_page = SearchHelper(browser)
+    title = main_page.document_title().lower()
+    assert "налоговый кодекс" in title
+    assert "часть вторая" in title
+
+
