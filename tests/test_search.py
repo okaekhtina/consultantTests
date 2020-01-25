@@ -7,7 +7,6 @@ logging.basicConfig(filename='log.log', level=logging.INFO, format='%(asctime)s 
 def test_search(browser):
     logging.info("START")
     main_page = SearchHelper(browser)
-    main_page.go_to_site()
     main_page.enter_text('нк ч2')
     main_page.click_on_the_search_button()
     main_page.text_in_field()
@@ -34,3 +33,7 @@ def test_document_name(browser):
     assert "часть вторая" in title
 
 
+def test_window_title(browser):
+    title = browser.title.lower()
+    assert "налоговый кодекс" in title
+    assert "часть вторая" in title
