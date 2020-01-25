@@ -1,30 +1,16 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pageobject.base_page import BasePage
+
+timeout = 10
 
 
 class Locators:
-    # SEARCH_FIELD = (By.CSS_SELECTOR, ".filterContainer")
     SEARCH_FIELD = (By.ID, "dictFilter")
     SEARCH_BUTTON = (By.CSS_SELECTOR, ".doSearchBtn.flat")
     SEARCH_RESULT_ELEMENT = (By.CSS_SELECTOR, ".results.withBanners .name")
-
-
-class BasePage:
-    def __init__(self, driver):
-        self.driver = driver
-        self.base_url = "http://base.consultant.ru/cons/"
-
-    def find_element(self, locator, time=10):
-        return WebDriverWait(self.driver, time).until(EC.presence_of_element_located(locator),
-                                                      message=f"Can't find element by locator {locator}")
-
-    def find_elements(self, locator, time=10):
-        return WebDriverWait(self.driver, time).until(EC.presence_of_all_elements_located(locator),
-                                                      message=f"Can't find elements by locator {locator}")
-
-    def go_to_site(self):
-        return self.driver.get(self.base_url)
+    RESULT_FIRST_DOCUMENT = (By.CSS_SELECTOR, "[index='0']")
+    DOCUMENT_FRAME = (By.CSS_SELECTOR, '#mainContent > div.textContainer.visible > iframe')
+    DOCUMENT_TITLE = (By.CSS_SELECTOR, '.document.title')
 
 
 class SearchHelper(BasePage):
@@ -36,7 +22,7 @@ class SearchHelper(BasePage):
         return search_field
 
     def click_on_the_search_button(self):
-        return self.find_element(Locators.SEARCH_BUTTON, time=2).click()
+        return self.find_element(Locators.SEARCH_BUTTON, timeout).click()
 
     def text_in_field(self):
         search_field = self.find_element(Locators.SEARCH_FIELD)
@@ -44,4 +30,18 @@ class SearchHelper(BasePage):
         return text_in_field
 
     def result_element(self):
-        return self.find_element(Locators.SEARCH_RESULT_ELEMENT, time=10)
+        return self.find_element(Locators.SEARCH_RESULT_ELEMENT, time=timeout)
+
+    def open_first_document(self):
+        first_document = self.find_element(Locators.RESULT_FIRST_DOCUMENT, time=timeout)
+        first_document.click()
+        return first_document
+
+    def go_to_frame(self):
+        frame = self.find_element(Locators.DOCUMENT_FRAME, time=timeout)
+        return frame
+
+    def loading_document(self):
+        text_on_page = self.find_element(Locators.DOCUMENT_TITLE, time=timeout)
+        return text_on_page
+
