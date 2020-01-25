@@ -11,4 +11,5 @@ cd Scripts
 
 pip3 install selenium
 
-5. открыть pycharm > Get from version control > вставить ссылку на репозиторий https://github.com/okaekhtina/consultantTests.git
+5. Открыть pycharm > Get from version control > вставить ссылку на репозиторий https://github.com/okaekhtina/consultantTests.git
+6. В папке с питоном установить вебдрайвер для браузера хром https://chromedriver.chromium.org/downloads
