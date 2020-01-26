@@ -46,7 +46,3 @@ class SearchHelper(BasePage):
         title_text = title.text
         return title_text
 
-    # def window_title(self):
-    #     title = self.find_element(Locators.DOCUMENT_TITLE)
-    #     title_text = title.text
-    #     return title_text
